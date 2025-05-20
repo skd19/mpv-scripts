@@ -11,3 +11,15 @@ mp.register_event("file-loaded", function()
         mp.set_property("geometry", string.format("%dx%d", stored_width, stored_height))
     end
 end)
+
+
+local locked = false
+
+mp.register_event("file-loaded", function()
+    if not locked then
+        local w = mp.get_property_native("current-window-width")
+        local h = mp.get_property_native("current-window-height")
+        mp.set_property("geometry", string.format("%dx%d", w, h))
+        locked = true
+    end
+end)
